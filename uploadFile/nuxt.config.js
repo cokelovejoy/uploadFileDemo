@@ -52,6 +52,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Build configuration
@@ -59,5 +61,21 @@ export default {
   */
   build: {
     transpile: [/^element-ui/],
+  },
+  axios: {
+    proxy: true, // 开启代理
+    prefix: '/api', // 表示给请求url加个前缀 /api
+    credentials: false // 表示跨域请求时是否需要使用凭证
+  },
+  // 代理
+  proxy: {
+    "/api": {
+      target: "http://127.0.0.1:7002",
+      secure: false,
+      pathRewrite: {
+        "^/api": "", // 把 /api 替换成 ""
+        changeOrigin: true // 表示是否跨域
+      }
+    }
   }
 }
