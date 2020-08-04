@@ -36,7 +36,8 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/axios'
   ],
   /*
   ** Auto import components
@@ -70,7 +71,7 @@ export default {
   // 代理
   proxy: {
     "/api": {
-      target: "http://127.0.0.1:7002",
+      target: "http://127.0.0.1:7001",
       secure: false,
       pathRewrite: {
         "^/api": "", // 把 /api 替换成 ""

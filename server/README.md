@@ -31,3 +31,15 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+
+### egg规范
+response
+```js
+// code 0 是成功，其他都是失败
+// 可以自定义
+{
+    code: 0,
+    data: {},
+    message: '' // errors: 具体报错信息
+}
+```
