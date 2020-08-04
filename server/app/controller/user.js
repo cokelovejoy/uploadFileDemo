@@ -40,7 +40,7 @@ class UserController extends BaseController {
             },
             app.config.jwt.secret, 
             {
-                expiresIn: "1h"
+                expiresIn: "3m" // 过期时间
             }
         )
         this.success({token, email, nickname: user.nickname})
@@ -80,7 +80,11 @@ class UserController extends BaseController {
         // 校验用户名是否存在
     }
     async info() {
-
+        const {ctx} = this
+        // 解析token，从token中读取用户状态
+        const {email} = ctx.state
+        const user = await this.checkEmail(email)
+        this.success(user)
     }
     async checkEmail(email) {
         const user = await this.ctx.model.User.findOne({ email })

@@ -18,7 +18,7 @@
         <div class="captcha">
           <el-button @click="sendEmailCode" :disabled="send.timer > 0" type="primary">{{sendText}}</el-button>
         </div>
-        <el-input v-model="form.captcha" placeholder="请输入邮箱验证码"></el-input>
+        <el-input v-model="form.emailcode" placeholder="请输入邮箱验证码"></el-input>
       </el-form-item>
 
       <el-form-item prop="passwd" label="密码" type="password">
@@ -51,7 +51,8 @@ export default {
       form: {
         email: "847035485@qq.com",
         passwd: "123456",
-        captcha: ""
+        captcha: "",
+        emailcode: ''
       },
       rules: {
         email: [
@@ -86,13 +87,15 @@ export default {
             email: this.form.email,
             nickname: this.form.nickname,
             passwd: md5(this.form.passwd),
-            captcha: this.form.captcha
+            captcha: this.form.captcha,
+            emailcode: this.form.emailcode
           };
           let result = await this.$http.post("/user/login", obj);
-          // code==0 表示成功
+          // code == 0 表示成功
           if (result.code == 0) {
             // token的存储 登陆成功，返回token
             this.$message.success("登陆成功");
+            localStorage.setItem('token', result.data.token)
             setTimeout(() => {
               this.$router.push("/index");
             }, 1000);
