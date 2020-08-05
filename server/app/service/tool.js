@@ -1,12 +1,12 @@
 const {Service} = require('egg')
 const nodeMailer = require('nodemailer')
-const userEmail = '2415124220@qq.com'
+const userEmail = 'cokelovejoy@126.com'
 const transporter = nodeMailer.createTransport({
-    service: "QQ",
+    service: "126",
     secureConnection: true,
     auth: {
         user: userEmail,
-        pass: 'gwgwnbrwonwldibh' // 邮箱授权码
+        pass: 'LVXYNHGAKUVOOUVN' // 邮箱授权码
     }
 })
 class ToolService extends Service{

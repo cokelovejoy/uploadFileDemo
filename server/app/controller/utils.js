@@ -1,5 +1,6 @@
 const svgCaptcha = require('svg-captcha') // 用于生成验证码
 const BaseController = require('./base')
+const fse = require('fs-extra')
 
 
 class UtilController extends BaseController {
@@ -34,6 +35,17 @@ class UtilController extends BaseController {
     } else {
       this.error('发送失败')
     }
+  }
+
+  async uploadfile() {
+    const {ctx} = this
+    const file = ctx.request.files[0]
+    // const {name} = ctx.request.body
+    // 将图片从暂存目录移动到 指定文件夹下
+    await fse.move(file.filepath, this.config.UPLOAD_DIR+`/${file.filename}` )
+    this.success({
+      url: `/public/${file.filename}`
+    })
   }
 }
 module.exports = UtilController

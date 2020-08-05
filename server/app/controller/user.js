@@ -19,9 +19,9 @@ class UserController extends BaseController {
             return this.error('验证码错误')
         }
         // 校验邮箱验证码
-        if (emailcode !== ctx.session.emailcode) {
-            return this.error('邮箱验证码错误')
-        }
+        // if (emailcode !== ctx.session.emailcode) {
+        //     return this.error('邮箱验证码错误')
+        // }
         // 从数据库找用户信息
         const user = await ctx.model.User.findOne({
             email,
@@ -40,7 +40,7 @@ class UserController extends BaseController {
             },
             app.config.jwt.secret, 
             {
-                expiresIn: "3m" // 过期时间
+                expiresIn: "1h" // 过期时间
             }
         )
         this.success({token, email, nickname: user.nickname})
@@ -84,6 +84,7 @@ class UserController extends BaseController {
         // 解析token，从token中读取用户状态
         const {email} = ctx.state
         const user = await this.checkEmail(email)
+        console.log('user', email)
         this.success(user)
     }
     async checkEmail(email) {

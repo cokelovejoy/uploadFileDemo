@@ -14,12 +14,12 @@
         <el-input v-model="form.captcha" placeholder="请输入验证码"></el-input>
       </el-form-item>
 
-      <el-form-item prop="emailcode" label="验证码" class="captcha-container">
+      <!-- <el-form-item prop="emailcode" label="验证码" class="captcha-container">
         <div class="captcha">
           <el-button @click="sendEmailCode" :disabled="send.timer > 0" type="primary">{{sendText}}</el-button>
         </div>
         <el-input v-model="form.emailcode" placeholder="请输入邮箱验证码"></el-input>
-      </el-form-item>
+      </el-form-item> -->
 
       <el-form-item prop="passwd" label="密码" type="password">
         <el-input v-model="form.passwd" placeholder="请输入密码"></el-input>
@@ -97,7 +97,7 @@ export default {
             this.$message.success("登陆成功");
             localStorage.setItem('token', result.data.token)
             setTimeout(() => {
-              this.$router.push("/index");
+              this.$router.push("/usercenter");
             }, 1000);
           } else {
             this.$message.error(result.message);

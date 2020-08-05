@@ -5,6 +5,7 @@
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
+const path = require('path')
 module.exports = appInfo => {
   /**
    * built-in config
@@ -16,8 +17,15 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1596416631783_669'
 
   // add your middleware config here
-  config.middleware = []
+  config.middleware = [] // 此处配置的中间件是全局的
+  // 设置文件上传的路径
+  config.UPLOAD_DIR = path.resolve(__dirname, '..', 'app/public')
 
+  // 文件类型设置
+  config.multipart = {
+    mode: 'file',
+    whitelist: () => true
+  }
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
