@@ -27,6 +27,12 @@ class ToolService extends Service{
             return false
         }
     }
+    async mergeFile() {
+
+    }
+    async mergeChunks() {
+        
+    }
 }
 
 module.exports = ToolService

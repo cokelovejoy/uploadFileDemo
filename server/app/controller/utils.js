@@ -47,5 +47,13 @@ class UtilController extends BaseController {
       url: `/public/${file.filename}`
     })
   }
+  // 检查文件是否存在
+  // 文件hash名存在，文件碎片文件夹存在
+  async checkfile() {
+
+  }
+  async getUploadedList() {
+    
+  }
 }
 module.exports = UtilController
