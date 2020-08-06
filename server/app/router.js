@@ -19,6 +19,7 @@ module.exports = app => {
     router.post('/login', login)
     // 中间件 jwt先处理
     router.get('/info', jwt, info)
+    router.get('/detail', jwt, info)
     router.get('/verify', verify)
   })
 }

@@ -1,5 +1,8 @@
 <template>
 <div>
+    <div contenteditable="true">
+        haha
+    </div>
     <div class="write-btn">
         <el-button @click="submit" type="primary">提交</el-button>
     </div>
@@ -16,6 +19,10 @@
 
 <script>
 import marked from 'marked'
+import highlight from 'highlight.js'
+import hljs from 'highlight.js/lib/languages/javascript'
+import 'highlight.js/styles/monokai-sublime.css'
+
 export default {
     data() {
         return {
@@ -23,12 +30,22 @@ export default {
             * 上课
             * 睡觉
             * 吃饭
+            \`\`\`javascript
+                console.log('hello world')
+            \`\`\`
             `
         }
     },
     mounted() {
         this.timer = null
         this.bindEvents()
+
+        marked.setOption({
+            rendered: new marked.Renderers(),
+            highlight(code) {
+                return hljs.highlightAuto(code).value
+            }
+        })
     },
     computed: {
         compiledContent() {
@@ -37,7 +54,7 @@ export default {
     },
     methods: {
         bindEvents() {
-            this.$refs.editor.addEventListener('ppaste', async e => {
+            this.$refs.editor.addEventListener('paste', async e => {
                 const files = e.clipboardData.files
                 console.log(files)
                 // 直接上传
@@ -49,7 +66,12 @@ export default {
             })
         },
         submit() {
-
+            // 文章列表，点赞，关注，草稿 
+            // user ->article  一对多
+            let ret = await this.$http.post('/article/create', {
+                content: this.content, // selected:false
+                compiledContent: this.compiledContent // 显示只读取这个
+            })
         },
         // lodash /debounce 防抖
         update(e) {
