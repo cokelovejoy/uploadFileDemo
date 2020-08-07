@@ -22,4 +22,7 @@ module.exports = app => {
     router.get('/detail', jwt, info)
     router.get('/verify', verify)
   })
+  router.group({name: 'article', prefix: '/article'}, router => {
+    router.get('/', controller.article.index)
+  })
 }

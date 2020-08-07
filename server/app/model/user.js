@@ -6,7 +6,15 @@ module.exports = app => {
         email: { type: String, required: true },
         passwd: { type: String, required: true, select: false},
         nickname: { type: String, required: true },
-        avatar: { type: String, required: false, default: "/user.png" }
+        avatar: { type: String, required: false, default: "/user.png" },
+        following: {// user关注的用户数组
+            type: [{type: Schema.Types.ObjectId,ref: 'User'}],
+            default: []
+        },
+        likeArticle: {
+            type: [{type: Schema.Types.ObjectId, ref: 'Article'}],
+            default: []
+        }
     }, { timestamps: true })
     return mongoose.model('User', UserSchema)
 }
